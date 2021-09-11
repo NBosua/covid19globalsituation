@@ -41,9 +41,10 @@ def load_dashboard():
     cols[6].metric(label="FATALITY RATIO", value=str(round(df_daily['Case_Fatality_Ratio'].mean(),3)))
 
     #st.map(df_confirmed, zoom=3)
+    st.subheader("Top 20 Countries by Confirmed Cases")
+    st.bar_chart(df_daily[['Country_Region', 'Confirmed', 'Deaths']].groupby(['Country_Region']).sum().sort_values(by='Confirmed', ascending=False).head(20))
 
     st.table(df_daily[['Country_Region', 'Province_State', 'Confirmed', 'Deaths', 'Active', 'Recovered', 'Case_Fatality_Ratio']].groupby(['Country_Region']).sum().sort_values(by='Confirmed', ascending=False))
-    print(df_daily.dtypes)
 
 
 def main():

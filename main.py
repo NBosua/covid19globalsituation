@@ -3,6 +3,8 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 from urllib.error import HTTPError
+import plotly.express as px
+
 
 url_confirmed = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'
 url_daily = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/'
@@ -59,7 +61,6 @@ def load_dashboard():
     st.subheader("Top 20 Countries by Confirmed Cases")
 
     #st.bar_chart(df_daily[['Country_Region', 'Confirmed', 'Deaths']].groupby(['Country_Region']).sum().sort_values(by='Confirmed', ascending=False).head(20))
-    import plotly.express as px
     
     fig = px.bar(df_daily[['Country_Region', 'Confirmed']].groupby(['Country_Region']).sum().sort_values(by='Confirmed', ascending=False).reset_index().head(20), y='Confirmed', x='Country_Region')
     st.plotly_chart(fig, use_container_width=True)
